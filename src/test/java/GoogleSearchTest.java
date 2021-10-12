@@ -2,6 +2,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -27,8 +29,24 @@ public class GoogleSearchTest {
 
         driver.manage().window().maximize();
 
-        driver.findElement(By.name("[name='q']")).sendKeys("Java");
-        driver.findElement(By.name("[name='q']")).submit();
+        WebElement acceptCookieButton = driver.findElement(By.id("L2AGLb"));
+
+        Actions action = new Actions(driver);
+        action.moveToElement(acceptCookieButton).build().perform();
+        action.click(acceptCookieButton).build().perform();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.findElement(By.name("q")).sendKeys("Java");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         List<WebElement> searchList = driver.findElements(By.xpath("//ul[@role='listbox']//li/descendant::div[@class='pcTkSc']"));
 
@@ -38,11 +56,12 @@ public class GoogleSearchTest {
 
         String pageTitle = driver.getTitle();
 
-        assertTrue(pageTitle.contains("GoogleSearch"));
+        assertTrue(pageTitle.contains("Google"));
     }
 
     @AfterMethod
     public void afterTest() {
+        driver.manage().deleteAllCookies();
         driver.close();
         driver.quit();
     }
