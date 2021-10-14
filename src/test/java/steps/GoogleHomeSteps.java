@@ -1,6 +1,7 @@
 package steps;
 
 import com.google.pageObjects.GoogleHomePage;
+import io.qameta.allure.Step;
 
 import static com.google.threadsafedriver.LocalDriverManager.getDriver;
 import static com.google.threadsafedriver.LocalDriverManager.getEnvironment;
