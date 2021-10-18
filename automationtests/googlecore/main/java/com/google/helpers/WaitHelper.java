@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 
 import static com.google.constants.Timeouts.*;
-import static com.google.tools.threadsafedriver.LocalDriverManager.getDriver;
+import static com.google.threadsafedriver.LocalDriverManager.getDriver;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 public class WaitHelper {
